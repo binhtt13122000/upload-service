@@ -1,8 +1,8 @@
-package com.example.demo.services;
+package com.example.demo.services.fileservices;
 
 import java.io.BufferedReader;
 
-public interface IFileService {
+public interface FileService {
     void upload();
     BufferedReader download(String fileName);
 }

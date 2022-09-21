@@ -3,7 +3,8 @@ package com.example.demo.services.implement;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
-import com.example.demo.services.IFileService;
+import com.example.demo.services.fileservices.FileService;
+import com.example.demo.services.fileservices.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 @Service
-public class S3Service implements IFileService {
+public class S3ServiceImp implements S3Service {
 
     private AmazonS3 client;
 
@@ -20,7 +21,7 @@ public class S3Service implements IFileService {
     private String bucketName;
 
     @Autowired
-    public S3Service(AmazonS3 client){
+    public S3ServiceImp(AmazonS3 client){
         this.client = client;
     }
 
