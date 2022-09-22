@@ -10,12 +10,8 @@ import java.util.List;
 
 @Service
 public class InventoryServiceImp implements InventoryService {
-    private InventoryRepository inventoryRepository;
-
     @Autowired
-    public InventoryServiceImp(InventoryRepository inventoryRepository){
-        this.inventoryRepository = inventoryRepository;
-    }
+    private InventoryRepository inventoryRepository;
 
     @Override
     public void insert(Inventory inventory) {

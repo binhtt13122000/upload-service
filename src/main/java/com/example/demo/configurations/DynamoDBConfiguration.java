@@ -3,6 +3,7 @@ package com.example.demo.configurations;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -29,5 +30,10 @@ public class DynamoDBConfiguration {
                     .withRegion(amazonAWSRegion)
                     .build();
         return amazonDynamoDB;
+    }
+
+    @Bean
+    public DynamoDBMapper dynamoDBMapper(){
+        return new DynamoDBMapper(amazonDynamoDB());
     }
 }

@@ -12,21 +12,15 @@ import java.util.List;
 
 @Repository
 public class InventoryRepositoryImp implements InventoryRepository {
-    private AmazonDynamoDB amazonDynamoDB;
-
     @Autowired
-    public InventoryRepositoryImp(AmazonDynamoDB amazonDynamoDB){
-        this.amazonDynamoDB = amazonDynamoDB;
-    }
-    @Override
+    private DynamoDBMapper dynamoDBMapper;
+
     public void insert(Inventory inventory) throws AmazonDynamoDBException {
-        DynamoDBMapper mapper = new DynamoDBMapper(amazonDynamoDB);
-        mapper.save(inventory);
+        dynamoDBMapper.save(inventory);
     }
 
     @Override
     public void batchInsert(List<Inventory> inventoryList) {
-        DynamoDBMapper mapper = new DynamoDBMapper(amazonDynamoDB);
-        mapper.batchSave(inventoryList);
+        dynamoDBMapper.batchSave(inventoryList);
     }
 }

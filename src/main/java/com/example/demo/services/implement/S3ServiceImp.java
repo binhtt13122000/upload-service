@@ -15,15 +15,11 @@ import java.io.InputStreamReader;
 @Service
 public class S3ServiceImp implements S3Service {
 
+    @Autowired
     private AmazonS3 client;
 
     @Value("${amazon.aws.bucket}")
     private String bucketName;
-
-    @Autowired
-    public S3ServiceImp(AmazonS3 client){
-        this.client = client;
-    }
 
     @Override
     public void upload() {
