@@ -22,4 +22,9 @@ public class InventoryServiceImp implements InventoryService {
     public void batchInsert(List<Inventory> inventoryList) {
         this.inventoryRepository.batchInsert(inventoryList);
     }
+
+    @Override
+    public int countByBookId(String bookId) {
+        return this.inventoryRepository.getQuantityByBookUUID(bookId);
+    }
 }

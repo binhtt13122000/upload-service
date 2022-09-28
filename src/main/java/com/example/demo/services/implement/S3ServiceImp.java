@@ -3,16 +3,23 @@ package com.example.demo.services.implement;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
-import com.example.demo.services.fileservices.FileService;
 import com.example.demo.services.fileservices.S3Service;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.zip.GZIPInputStream;
 
 @Service
+@Slf4j
 public class S3ServiceImp implements S3Service {
 
     @Autowired
@@ -27,9 +34,20 @@ public class S3ServiceImp implements S3Service {
     }
 
     @Override
-    public BufferedReader download(String fileName) {
-        S3Object fileData = client.getObject(new GetObjectRequest(bucketName, fileName));
-        return new BufferedReader(new InputStreamReader(
-                fileData.getObjectContent()));
+    public List<String> download(String fileName) {
+        List<String> lines = new ArrayList<>();
+        String line;
+        try (S3Object fileData = client.getObject(new GetObjectRequest(bucketName, fileName));
+             GZIPInputStream fileIn = new GZIPInputStream(fileData.getObjectContent());
+             Reader decoder = new InputStreamReader(fileIn, Charset.defaultCharset());
+             BufferedReader bufferedReader = new BufferedReader(decoder)) {
+            while (StringUtils.hasText(line = bufferedReader.readLine())) {
+                lines.add(line);
+            }
+        } catch (Exception e) {
+            log.error("Could not handle file s3://{}/{}", bucketName, fileName, e);
+            throw new RuntimeException(e);
+        }
+        return lines;
     }
 }
