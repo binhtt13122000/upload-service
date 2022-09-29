@@ -15,7 +15,7 @@
     <description>demo2</description>
     <properties>
         <java.version>1.8</java.version>
-        <aws.dynamodb.version>1.12.305</aws.dynamodb.version>
+        <aws.dynamodb.version>1.12.307</aws.dynamodb.version>
         <aws.awspring.version>2.4.2</aws.awspring.version>
     </properties>
     <dependencies>

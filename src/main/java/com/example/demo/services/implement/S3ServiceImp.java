@@ -25,7 +25,7 @@ public class S3ServiceImp implements S3Service {
     @Autowired
     private AmazonS3 client;
 
-    @Value("${amazon.aws.bucket}")
+    @Value("${s3.bucket}")
     private String bucketName;
 
     @Override
@@ -38,8 +38,7 @@ public class S3ServiceImp implements S3Service {
         List<String> lines = new ArrayList<>();
         String line;
         try (S3Object fileData = client.getObject(new GetObjectRequest(bucketName, fileName));
-             GZIPInputStream fileIn = new GZIPInputStream(fileData.getObjectContent());
-             Reader decoder = new InputStreamReader(fileIn, Charset.defaultCharset());
+             Reader decoder = new InputStreamReader(fileData.getObjectContent(), Charset.defaultCharset());
              BufferedReader bufferedReader = new BufferedReader(decoder)) {
             while (StringUtils.hasText(line = bufferedReader.readLine())) {
                 lines.add(line);

@@ -29,11 +29,12 @@ public class SQSReceiveS3NotificationServiceImp implements SQSReceiveS3Notificat
     @Autowired
     private InventoryService inventoryService;
 
-    @SqsListener(value = "${amazon.aws.sqs}", deletionPolicy = SqsMessageDeletionPolicy.ON_SUCCESS)
+    @SqsListener(value = "${sqs.queue}", deletionPolicy = SqsMessageDeletionPolicy.ON_SUCCESS)
     public void receiveEvent(S3EventNotification event) throws IOException {
         //batch insert with dynamoMapper
         S3EventNotification.S3Entity s3Entity = event.getRecords().get(Constants.FIRST_ELEMENT).getS3();
         String objectKey = s3Entity.getObject().getKey();
+        System.out.println(objectKey);
         List<String> lines = s3Service.download(objectKey);
         List<Inventory> inventories = lines.stream().map(line -> {
                 final  String[] data = line.split(Constants.DELIMITER);

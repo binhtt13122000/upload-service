@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: kms-upload-service
+cloud:
+  aws:
+    stack:
+      auto: false
+    region:
+      static: ap-southeast-1
+
+aws:
+  region: ap-southeast-1
+  endpoint: http://localhost:4566
+
+s3:
+  bucket: csv-kms-demo-storage
+
+sqs:
+  queue: upload-queue
+
+dynamodb:
+  entity:
+    table: Inventory
+
+server:
+  port: 8082
+
