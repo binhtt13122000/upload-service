@@ -28,4 +28,4 @@ jobs:
     
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag binhtt13122000/upload-service-api:$(date +%s)
+      run: docker build . --file Dockerfile --tag binhtt13122000/upload-service:$(date +%s)
