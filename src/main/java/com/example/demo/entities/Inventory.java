@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@DynamoDBTable(tableName = "${dynamodb.entity.table}")
+@DynamoDBTable(tableName = "Inventory")
 public class Inventory {
     @DynamoDBHashKey
     private String uuid;
