@@ -18,13 +18,14 @@ jobs:
       MY_AWS_REGION: ${{ secrets.MY_AWS_REGION }}
       SPRING_PROFILES_ACTIVE: aws
     steps: 
-    - name: Download a single artifact
-    - uses: actions/download-artifact@v3
-    - with:
+    - name: Download artifact
+      uses: actions/download-artifact@v3
+      with:
         name: action-github-artifacts
-    - run: 
-        ls
-
+    - name: Excute
+      run: |
+        ls -R
+    
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag binhtt13122000/upload-service-api:$(date +%s)
