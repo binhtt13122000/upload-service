@@ -29,7 +29,7 @@ jobs:
     - name: Build with Maven
       run: |
         mvn -B package --file pom.xml
-        mkdir artifacts && cp target/*.jar artifacts
+        mkdir -p artifacts/target && cp target/*.jar artifacts/target && cp Dockerfile artifacts 
         cd artifacts && ls
       
     - name: Upload build artifact
@@ -38,7 +38,7 @@ jobs:
         name: action-github-artifacts
         path: artifacts
 
-  test:
+  docker:
     needs: [build]
     runs-on: ubuntu-latest
     env:
@@ -55,8 +55,6 @@ jobs:
     - name: Excute
       run: |
         ls -R
-    
-    - uses: actions/checkout@v3
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag binhtt13122000/upload-service:$(date +%s)
 
