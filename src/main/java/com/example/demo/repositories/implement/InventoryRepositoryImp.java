@@ -43,6 +43,6 @@ public class InventoryRepositoryImp implements InventoryRepository {
                         .withExpressionAttributeValues(expressionAttributeValues)
                         .withConsistentRead(false)
         );
-        return list.stream().map(book -> book.getQuantity()).reduce(0, (prev, cur) -> prev + cur);
+        return list.stream().map(Inventory::getQuantity).reduce(0, Integer::sum);
     }
 }

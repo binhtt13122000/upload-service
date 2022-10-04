@@ -16,10 +16,7 @@ import org.springframework.context.annotation.Profile;
 public class AWSConfiguration {
     @Bean
     public AmazonS3 amazonS3() {
-        System.out.println("aws");
-        AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
-        System.out.println(s3.getRegion());
-        return s3;
+        return AmazonS3ClientBuilder.defaultClient();
     }
 
     @Bean
@@ -36,19 +33,4 @@ public class AWSConfiguration {
     public DynamoDBMapper dynamoDBMapper(){
         return new DynamoDBMapper(amazonDynamoDB());
     }
-
-//    @Bean
-//    public AmazonCloudWatchAsync amazonCloudWatchAsync() {
-//        return AmazonCloudWatchAsyncClientBuilder.defaultClient();
-//    }
-
-//    private AWSCredentials amazonAWSCredentials() {
-//        return new BasicAWSCredentials(
-//                amazonAWSAccessKey, amazonAWSSecretKey);
-//    }
-//
-//    @Bean
-//    public AWSCredentialsProvider awsCredentialsProvider(){
-//        return new AWSStaticCredentialsProvider(amazonAWSCredentials());
-//    }
 }

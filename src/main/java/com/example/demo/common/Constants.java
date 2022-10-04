@@ -7,6 +7,8 @@ public class Constants {
     public static final int THIRD_ELEMENT = 2;
     public static final int TOTAL_ELEMENT_IN_LINE = 3;
 
+    public static final String TABLE_NAME = "Inventory";
+
     public static final String GET_QUANTITY_BY_BOOK = "/books/{id}/quantity";
     public static final String BOOK_ID_ATTRIBUTE_NAME = "#bookUuid";
     public static final String BOOK_ID_ATTRIBUTE_NAME_VALUE = "bookUuid";

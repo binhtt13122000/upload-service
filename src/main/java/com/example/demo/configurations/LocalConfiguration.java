@@ -22,26 +22,30 @@ public class LocalConfiguration {
     @Value("${aws.endpoint}")
     private String endpoint;
 
-    private AwsClientBuilder.EndpointConfiguration getEndpointConfig(){
+    private AwsClientBuilder.EndpointConfiguration getEndpointConfiguration(){
         return new AwsClientBuilder.EndpointConfiguration(endpoint, region);
     }
 
     @Bean
     public AmazonS3 amazonS3() {
-        System.out.println("normal");
-        AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
-        System.out.println(s3.getRegion());
-        return s3;
+        return AmazonS3ClientBuilder.standard()
+                .withEndpointConfiguration(getEndpointConfiguration())
+                .withPathStyleAccessEnabled(true)
+                .build();
     }
 
     @Bean
     public AmazonSQSAsync amazonSQS() {
-        return AmazonSQSAsyncClientBuilder.defaultClient();
+        return AmazonSQSAsyncClientBuilder.standard()
+                .withEndpointConfiguration(getEndpointConfiguration())
+                .build();
     }
 
     @Bean
     public AmazonDynamoDB amazonDynamoDB() {
-        return AmazonDynamoDBClientBuilder.defaultClient();
+        return AmazonDynamoDBClientBuilder.standard()
+                .withEndpointConfiguration(getEndpointConfiguration())
+                .build();
     }
 
     @Bean

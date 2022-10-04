@@ -35,4 +35,5 @@ public class AppConfiguration {
         converter.setObjectMapper(mapper);
         return converter;
     }
+
 }
