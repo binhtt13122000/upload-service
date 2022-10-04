@@ -19,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -47,7 +48,7 @@ public class SQSReceiveS3NotificationServiceImp implements SQSReceiveS3Notificat
                 }
                 return new Inventory(data[Constants.FIRST_ELEMENT], data[Constants.SECOND_ELEMENT], Integer.parseInt(quantity));
         }
-        ).filter(inventory -> inventory != null).collect(Collectors.toList());
+        ).filter(Objects::nonNull).collect(Collectors.toList());
         this.inventoryService.batchInsert(inventories);
     }
 }
