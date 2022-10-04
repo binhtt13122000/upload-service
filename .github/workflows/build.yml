@@ -3,6 +3,8 @@ name: Build and Deploy to ECR
 on: 
   pull_request:
     branches: [master]
+  push:
+    branches: [master]
 
 jobs:
   build:
@@ -22,10 +24,8 @@ jobs:
     - name: Set up JDK 11
       uses: actions/setup-java@v3
       with:
-        java-version: '8'
+        java-version: '11'
         distribution: 'temurin'
-        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
-        settings-path: ${{ github.workspace }} # location for the settings.xml file
 
     - name: Build with Maven
       run: |
@@ -65,9 +65,10 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         IMAGE_TAG: ${{ github.sha }}
         ECR_REPOSITORY: kms-service
+        ECR_SERVICE: upload-service
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:upload-service .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:upload-service
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:upload-service"
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$ECR_SERVICE .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$ECR_SERVICE
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$ECR_SERVICE"
 
 
