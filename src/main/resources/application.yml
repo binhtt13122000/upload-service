@@ -21,7 +21,3 @@ sqs:
 dynamodb:
   entity:
     table: inventory
-
-server:
-  port: 8082
-

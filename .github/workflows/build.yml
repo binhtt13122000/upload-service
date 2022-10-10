@@ -63,12 +63,11 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ github.sha }}
+        IMAGE_TAG: v1.0.0
         ECR_REPOSITORY: kms-service
-        ECR_SERVICE: upload-service
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$ECR_SERVICE .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$ECR_SERVICE
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$ECR_SERVICE"
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
 
