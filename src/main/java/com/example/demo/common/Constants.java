@@ -1,6 +1,6 @@
 package com.example.demo.common;
 
-public class Constants {
+public final class Constants {
     public static final String DELIMITER = ",";
     public static final int UUID_INDEX = 0;
     public static final int BOOK_UUID_INDEX = 1;
